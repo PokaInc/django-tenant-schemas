@@ -17,6 +17,11 @@ class Command(SyncCommon):
     def add_arguments(self, parser):
         super(Command, self).add_arguments(parser)
         command = MigrateCommand()
+
+        skip_checks_action = parser._option_string_actions.pop('--skip-checks', None)
+        if skip_checks_action:
+            parser._remove_action(skip_checks_action)
+
         command.add_arguments(parser)
 
     def handle(self, *args, **options):
